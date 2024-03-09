@@ -99,6 +99,10 @@ class Painter:
     footer_font_size: int
     footer_font_colour: str
 
+    timestamp_font: str
+    timestamp_font_size: int
+    timestamp_font_colour: str
+
     current_colour: str
     line_width: int
     transparency_level: int
@@ -175,6 +179,11 @@ class Painter:
             self.footer_font_size,
             self.footer_font_colour,
         ) = self.colour_theme.get_colour_theme_settings("footer")
+        (
+            self.timestamp_font,
+            self.timestamp_font_size,
+            self.timestamp_font_colour,
+        ) = self.colour_theme.get_colour_theme_settings("timestamp")
 
     def get_font_path(self, font_name: str) -> str:
         """Get the path to the font file"""

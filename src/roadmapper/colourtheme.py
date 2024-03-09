@@ -43,6 +43,7 @@ DEFAULT_GROUP_FONT_SIZE = 12
 DEFAULT_TASK_FONT_SIZE = 12
 DEFAULT_MILESTONE_FONT_SIZE = 10
 DEFAULT_FOOTER_FONT_SIZE = 13
+DEFAULT_TIMESTAMP_FONT_SIZE = 9
 
 
 default_colour_settings = {
@@ -98,6 +99,11 @@ default_colour_settings = {
             "footer_font": DEFAULT_FONT,
             "footer_font_size": DEFAULT_FOOTER_FONT_SIZE,
             "footer_font_colour": "#000000",
+        },
+        "timestamp": {
+            "timestamp_font": DEFAULT_FONT,
+            "timestamp_font_size": DEFAULT_TIMESTAMP_FONT_SIZE,
+            "timestamp_font_colour": "#D4D4D4",
         },
     },
 }
@@ -156,6 +162,11 @@ greywoof_colour_settings = {
             "footer_font_size": DEFAULT_FOOTER_FONT_SIZE,
             "footer_font_colour": "#000000",
         },
+        "timestamp": {
+            "timestamp_font": DEFAULT_FONT,
+            "timestamp_font_size": DEFAULT_TIMESTAMP_FONT_SIZE,
+            "timestamp_font_colour": "#D4D4D4",
+        },
     },
 }
 
@@ -212,6 +223,11 @@ bluemountain_colour_settings = {
             "footer_font": DEFAULT_FONT,
             "footer_font_size": DEFAULT_FOOTER_FONT_SIZE,
             "footer_font_colour": "#0B5394",
+        },
+        "timestamp": {
+            "timestamp_font": DEFAULT_FONT,
+            "timestamp_font_size": DEFAULT_TIMESTAMP_FONT_SIZE,
+            "timestamp_font_colour": "#D4D4D4",
         },
     },
 }
@@ -270,6 +286,11 @@ orangepeel_colour_settings = {
             "footer_font_size": DEFAULT_FOOTER_FONT_SIZE,
             "footer_font_colour": "#B45F06",
         },
+        "timestamp": {
+            "timestamp_font": DEFAULT_FONT,
+            "timestamp_font_size": DEFAULT_TIMESTAMP_FONT_SIZE,
+            "timestamp_font_colour": "#D4D4D4",
+        },
     },
 }
 
@@ -327,6 +348,11 @@ greenturtle_colour_settings = {
             "footer_font_size": DEFAULT_FOOTER_FONT_SIZE,
             "footer_font_colour": "#38761D",
         },
+        "timestamp": {
+            "timestamp_font": DEFAULT_FONT,
+            "timestamp_font_size": DEFAULT_TIMESTAMP_FONT_SIZE,
+            "timestamp_font_colour": "#D4D4D4",
+        },
     },
 }
 
@@ -374,7 +400,7 @@ class ColourTheme:
 
         Args:
             roadmap_component (str): Roadmap component to get the colour theme settings for.
-                                        Components are: "background", "title", "timeline", "marker", "group", "task", "milestone", "footer"
+                                        Components are: "background", "title", "timeline", "marker", "group", "task", "milestone", "footer", "timestamp"
 
         Returns:
             background_colour (str): If roadmap_component is "background"
@@ -417,6 +443,7 @@ class ColourTheme:
             milestone_fill_colour (str): If roadmap_component is "milestone"
 
             footer_font_colour (str): If roadmap_component is "footer"
+            timestamp_font_colour (str): If roadmap_component is "timestamp"
         """
 
         colour_settings = None

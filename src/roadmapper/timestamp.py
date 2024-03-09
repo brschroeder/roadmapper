@@ -25,8 +25,8 @@ from .painter import Painter
 
 
 @dataclass(kw_only=True)
-class Footer:
-    """Roadmap Footer class"""
+class Timestamp:
+    """Roadmap Timestamp class"""
 
     text: str = field(init=True, default=None)
     font: str = field(init=True, default=None)
@@ -36,43 +36,37 @@ class Footer:
     y: int = field(init=False, default=0)
 
     def __calculate_draw_position(self, painter: Painter) -> tuple[int, int]:
-        """Calculate footer draw position
+        """Calculate timestamp draw position
 
         Args:
             painter (Painter): Pillow wrapper class instance
 
         Returns:
-            tuple[int, int]: Footer x and y position
+            tuple[int, int]: Timestamp x and y position
         """
         self.width, self.height = painter.get_text_dimension(
             self.text, self.font, self.font_size
         )
-        # 20px is the marging between the last drawn item and the footer
-        return (
-            painter.width / 2
-        ) - self.width / 2, painter.next_y_pos + self.height + 20
-        # return painter.width - self.width - painter.right_margin, painter.next_y_pos + self.height
+        return painter.width - self.width - painter.right_margin, painter.next_y_pos + self.height
 
     def set_draw_position(self, painter: Painter) -> None:
-        """Set footer draw position
+        """Set timestamp draw position
 
         Args:
             painter (Painter): Pillow wrapper class instance
             last_y_pos (int): Last drawn item y position
         """
         self.x, self.y = self.__calculate_draw_position(painter)
-        painter.next_y_pos = self.y + self.height + 35
-        # painter.next_y_pos = self.y + self.height + 0
+        painter.next_y_pos = self.y + self.height
 
     def draw(self, painter: Painter) -> None:
-        """Draw footer
+        """Draw timestamp
 
         Args:
             painter (Painter): Pillow wrapper class instance
         """
 
-        # add 35px top margin before drawing the footer
+        # add 5px top margin before drawing the timestamp
         painter.draw_text(
-            self.x, self.y + 35, self.text, self.font, self.font_size, self.font_colour
-            # self.x, self.y + 5, self.text, self.font, self.font_size, self.font_colour
+            self.x, self.y + 5, self.text, self.font, self.font_size, self.font_colour
         )

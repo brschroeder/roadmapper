@@ -28,6 +28,7 @@ from .painter import PainterFactory
 from .title import Title
 from .subtitle import SubTitle
 from .footer import Footer
+from .timestamp import Timestamp
 from .timelinemode import TimelineMode
 from .timeline import Timeline
 from .group import Group
@@ -51,6 +52,7 @@ class Roadmap:
     _timeline: Timeline = field(default=None, init=False)
     _groups: list[Group] = field(default_factory=list, init=False)
     _footer: Footer = field(default=None, init=False)
+    _timestamp:Timestamp = field(default=None, init=False)
     _marker: Marker = field(default=None, init=False)
     _show_generic_dates: bool = field(default=False, init=False)
     _logo: Logo = field(default=None, init=False)
@@ -218,6 +220,31 @@ class Roadmap:
         )
         self._footer.text = text
 
+    def set_timestamp(
+        self,
+        text: str,
+        font: str = "",
+        font_size: int = 0,
+        font_colour: str = "",
+    ) -> None:
+        """Configure the timestamp settings
+
+        Args:
+            text (str): timestamp text
+            font (str, optional): Timestamp font. Defaults to "Arial".
+            font_size (int, optional): Timestamp font size. Defaults to 8.
+            font_colour (str, optional): Timestamp font colour. Defaults to light grey.
+        """
+
+        font = font or self._painter.timestamp_font
+        font_size = font_size or self._painter.timestamp_font_size
+        font_colour = font_colour or self._painter.timestamp_font_colour
+
+        self._timestamp = Timestamp(
+            text=text, font=font, font_size=font_size, font_colour=font_colour
+        )
+        self._timestamp.text = text
+
     def set_timeline(
         self,
         mode: TimelineMode = TimelineMode.MONTHLY,
@@ -361,7 +388,7 @@ class Roadmap:
         if self._title is not None:
             self._title.draw(self._painter)
 
-        ### Draw the roadmap subtitle, requires tite to be set
+        ### Draw the roadmap subtitle, requires title to be set
         if self._subtitle is not None and self._title is not None:
             self._subtitle.draw(self._painter)
 
@@ -388,13 +415,17 @@ class Roadmap:
             self._marker.set_line_draw_position(self._painter)
             self._marker.draw(self._painter)
 
+        ### Draw the roadmap timestamp
+        if self._timestamp is not None:
+            self._timestamp.set_draw_position(self._painter)
+            self._timestamp.draw(self._painter)
+
         ### Draw the roadmap footer
         if self._footer is not None:
             self._footer.set_draw_position(self._painter)
             self._footer.draw(self._painter)
 
         ### Draw logo, requires title to be set
-
         if self._logo is not None and self._title is not None:
             if self._logo.position[:10] != "top-centre":
                 self._logo.set_draw_position(self._painter, self.auto_height)
