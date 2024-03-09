@@ -358,12 +358,11 @@ class Roadmap:
         self._painter.set_background_colour()
 
         ### Draw the roadmap title
-        if self._title is None:
-            raise ValueError("Title is not set. Please call set_title() to set title.")
-        self._title.draw(self._painter)
+        if self._title is not None:
+            self._title.draw(self._painter)
 
-        ### Draw the roadmap subtitle
-        if self._subtitle is not None:
+        ### Draw the roadmap subtitle, requires tite to be set
+        if self._subtitle is not None and self._title is not None:
             self._subtitle.draw(self._painter)
 
         ### Draw the roadmap timeline
@@ -394,9 +393,9 @@ class Roadmap:
             self._footer.set_draw_position(self._painter)
             self._footer.draw(self._painter)
 
-        ### Draw logo
+        ### Draw logo, requires title to be set
 
-        if self._logo is not None:
+        if self._logo is not None and self._title is not None:
             if self._logo.position[:10] != "top-centre":
                 self._logo.set_draw_position(self._painter, self.auto_height)
             self._logo.draw(self._painter)
